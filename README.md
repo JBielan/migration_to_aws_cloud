@@ -42,7 +42,9 @@ While running the whole proccess be prepared for 2 hours+ waiting time. The more
 Create Redshift `dc2.large` cluster with minimum of 4 nodes (it's 0.25USD/h but you need it for less then 2 hours). Fill `dwh.cfg` configuration file with appropriate parameters for your cluster.
 
 From command line on computer with internet connection:
-    python create_tables.py
-    python etl.py
-    
+```python
+python create_tables.py
+python etl.py
+```
+
 There you go! You can log into your AWS account and see the data using `Query editor` in your `Redshift dashboard`.
