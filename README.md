@@ -1,14 +1,14 @@
 # Migration from on-premise to AWS Cloud
 
 ## Table of contents
-* [Problem to Solve](#Problem)
+* [Problem to Solve](#Problem_to_Solve)
 * [Solution](#Solution)
-* [Concrete Steps](#Steps)
+* [Concrete Steps](#Concrete_Steps)
 * [Schema](#Schema)
-* [ETL(Extract, Transform, Load) Process](#ETL)
+* [ETL(Extract, Transform, Load) Process](#ETL(Extract,_Transform,_Load))
 * [Security](#Security)
 * [Suggestions](#Suggestions)
-* [Let's see the proof](#Proof)
+* [Let's see the proof](#Let's_see_the_proof)
 --------------------------------------------
 
 #### Problem to Solve
@@ -24,7 +24,7 @@ Data from on-premise databases has been moved in json files to S3 (AWS Simple St
 4. Data from staging tables is moved to Fact and Dimension tables.
 
 #### Schema
-Image
+![schema](https://github.com/JBielan/migration_to_aws_cloud/blob/master/database_schema.png?raw=true)
 Legend:
 - fields with black bullets are set as NOT NULL
 - underlined fields are primary keys
