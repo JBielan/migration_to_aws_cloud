@@ -1,14 +1,14 @@
 # Migration from on-premise to AWS Cloud
 
 ## Table of contents
-* [Problem to Solve](#Problem_to_Solve)
+* [Problem to Solve](#Problem-to-Solve)
 * [Solution](#Solution)
-* [Concrete Steps](#Concrete_Steps)
+* [Concrete Steps](#Concrete-Steps)
 * [Schema](#Schema)
-* [ETL(Extract, Transform, Load) Process](#ETL(Extract,_Transform,_Load))
+* [ETL(Extract, Transform, Load) Process](#ETL-Extract-Transform-Load-Process)
 * [Security](#Security)
 * [Suggestions](#Suggestions)
-* [Let's see the proof](#Let's_see_the_proof)
+* [Let's see the proof](#Lets-see-the-proof)
 --------------------------------------------
 
 #### Problem to Solve
@@ -29,7 +29,7 @@ Legend:
 - fields with black bullets are set as NOT NULL
 - underlined fields are primary keys
 
-#### ETL(Extract, Transform, Load) Pocess
+#### ETL(Extract, Transform, Load) Process
 Python has been used as a bridge between SQL queries and AWS Services. Using simple SQL queries data has been moved from S3 to staging tables and then directly to Facts and Dimensions tables.
 
 #### Security
