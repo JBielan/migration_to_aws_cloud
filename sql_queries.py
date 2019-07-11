@@ -36,8 +36,7 @@ staging_events_table_create = ("""CREATE TABLE staging_events(
     status INTEGER,  -- SHOULD BE ALWAYS A NUMBER, HTTP STATUS	
     ts VARCHAR(50),
     user_agent TEXT,	
-    user_id VARCHAR(100),
-    PRIMARY KEY (event_id))
+    user_id VARCHAR(100))
 """)
 
 staging_songs_table_create = ("""CREATE TABLE staging_songs(
@@ -50,12 +49,11 @@ staging_songs_table_create = ("""CREATE TABLE staging_songs(
     artist_name VARCHAR(255),
     title VARCHAR(255),
     duration DOUBLE PRECISION,
-    year INTEGER,
-    PRIMARY KEY (song_id))
+    year INTEGER)
 """)
 
 songplay_table_create = ( """CREATE TABLE songplays(
-    songplay_id INT IDENTITY(0,1),
+    songplay_id INT IDENTITY(0,1) NOT NULL,
     start_time TIMESTAMP REFERENCES time(start_time),
     user_id VARCHAR(50) REFERENCES users(user_id),
     level VARCHAR(50),
@@ -68,7 +66,7 @@ songplay_table_create = ( """CREATE TABLE songplays(
 """)
 
 user_table_create = ("""CREATE TABLE users(
-    user_id VARCHAR,
+    user_id VARCHAR NOT NULL,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
     gender VARCHAR(1),
@@ -77,7 +75,7 @@ user_table_create = ("""CREATE TABLE users(
 """)
 
 song_table_create = ("""CREATE TABLE songs(
-    song_id VARCHAR(100),
+    song_id VARCHAR(100) NOT NULL,
     title VARCHAR(255),
     artist_id VARCHAR(100) NOT NULL,
     year INTEGER,
@@ -86,7 +84,7 @@ song_table_create = ("""CREATE TABLE songs(
 """)
 
 artist_table_create = ("""CREATE TABLE artists(
-    artist_id VARCHAR(100),
+    artist_id VARCHAR(100) NOT NULL,
     name VARCHAR(255),
     location VARCHAR(255),
     latitude DOUBLE PRECISION,
@@ -95,7 +93,7 @@ artist_table_create = ("""CREATE TABLE artists(
 """)
 
 time_table_create = ("""CREATE TABLE time(
-    start_time TIMESTAMP,
+    start_time TIMESTAMP NOT NULL,
     hour INTEGER,
     day INTEGER,
     week INTEGER,
@@ -110,21 +108,23 @@ time_table_create = ("""CREATE TABLE time(
 # Load from JSON Arrays Using a JSONPaths file (LOG_JSONPATH),
 # setting COMPUPDATE, STATUPDATE to speed up COPY
 
-staging_events_copy = ("""copy staging_events from {}
- credentials 'aws_iam_role=arn:aws:iam::141774272940:role/S3_ReadOnly_for_Redshift'
+staging_events_copy = ("""copy staging_events from '{}'
+ credentials 'aws_iam_role={}'
  region 'us-west-2' 
  COMPUPDATE OFF STATUPDATE OFF
- JSON {}""").format(config.get('S3','LOG_DATA'),
+ JSON '{}'""").format(config.get('S3','LOG_DATA'),
+                        config.get('IAM_ROLE', 'ARN'),
                         config.get('S3','LOG_JSONPATH'))
 
 # setting COMPUPDATE, STATUPDATE to speed up COPY
 
-staging_songs_copy = ("""copy staging_songs from {}
-    credentials 'aws_iam_role=arn:aws:iam::141774272940:role/S3_ReadOnly_for_Redshift'
+staging_songs_copy = ("""copy staging_songs from '{}'
+    credentials 'aws_iam_role={}'
     region 'us-west-2' 
     COMPUPDATE OFF STATUPDATE OFF
     JSON 'auto'
-    """).format(config.get('S3','SONG_DATA'))
+    """).format(config.get('S3','SONG_DATA'), 
+                config.get('IAM_ROLE', 'ARN'))
 
 # FINAL TABLES
 
