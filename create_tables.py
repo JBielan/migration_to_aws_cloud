@@ -5,7 +5,14 @@ from sql_queries import create_table_queries, drop_table_queries
 
 def drop_tables(cur, conn):
     """
-    Drops all tables so new can be created for tests.
+    Description: Drops all tables so new can be created for tests.
+
+    Arguments:
+        cur: the cursor object. 
+        conn: the database connection object. 
+
+    Returns:
+        None
     """
     for query in drop_table_queries:
         cur.execute(query)
@@ -14,7 +21,14 @@ def drop_tables(cur, conn):
 
 def create_tables(cur, conn):
     """
-    Creates both staging and facts/dimensions tables.
+    Description: Creates both staging and facts/dimensions tables.
+
+    Arguments:
+        cur: the cursor object. 
+        conn: the database connection object. 
+
+    Returns:
+        None
     """
     for query in create_table_queries:
         cur.execute(query)
